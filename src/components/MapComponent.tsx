@@ -20,6 +20,7 @@ interface MapComponentProps {
   activeSpotId: string | null;
   onSpotClick: (id: string) => void;
   daySpots: Spot[];
+  centerTrigger?: number;
 }
 
 function ChangeView({ center, zoom }: { center: [number, number], zoom: number }) {
@@ -34,7 +35,7 @@ function ChangeView({ center, zoom }: { center: [number, number], zoom: number }
   return null;
 }
 
-const MapComponent: React.FC<MapComponentProps> = ({ spots, activeSpotId, onSpotClick, daySpots }) => {
+const MapComponent: React.FC<MapComponentProps> = ({ spots, activeSpotId, onSpotClick, daySpots, centerTrigger }) => {
   const [center, setCenter] = useState<[number, number]>([31.2304, 121.4737]); // Shanghai Center
   const [zoom, setZoom] = useState(13);
 
@@ -50,7 +51,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ spots, activeSpotId, onSpot
       setCenter([daySpots[0].lat, daySpots[0].lng]);
       setZoom(14);
     }
-  }, [activeSpotId, daySpots, spots]);
+  }, [activeSpotId, daySpots, spots, centerTrigger]);
 
   const polylinePositions = daySpots.map(s => [s.lat, s.lng] as [number, number]);
 

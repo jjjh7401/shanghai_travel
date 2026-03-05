@@ -11,6 +11,7 @@ export default function App() {
   const [spots, setSpots] = useState<Spot[]>([]);
   const [activeDayIndex, setActiveDayIndex] = useState(1);
   const [activeSpotId, setActiveSpotId] = useState<string | null>(null);
+  const [centerTrigger, setCenterTrigger] = useState(0);
   const [showDetail, setShowDetail] = useState(false);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'map' | 'timeline'>('timeline'); // For mobile
@@ -66,6 +67,15 @@ export default function App() {
     setShowDetail(true);
   };
 
+  const handleNavigate = (id: string) => {
+    setActiveSpotId(id);
+    setCenterTrigger(prev => prev + 1);
+    if (window.innerWidth < 768) {
+      setViewMode('map');
+      setShowDetail(false);
+    }
+  };
+
   return (
     <div className="h-screen flex flex-col bg-zinc-50 overflow-hidden font-sans">
       {/* Header */}
@@ -119,6 +129,7 @@ export default function App() {
             activeSpotId={activeSpotId} 
             onSpotClick={handleMapSpotClick}
             daySpots={daySpots}
+            centerTrigger={centerTrigger}
           />
         </div>
 
@@ -185,6 +196,7 @@ export default function App() {
         <SpotDetail 
           spot={showDetail ? activeSpot : null} 
           onClose={() => setShowDetail(false)} 
+          onNavigate={handleNavigate}
         />
       </main>
     </div>

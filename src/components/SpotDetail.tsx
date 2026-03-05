@@ -6,9 +6,10 @@ import { motion, AnimatePresence } from 'motion/react';
 interface SpotDetailProps {
   spot: Spot | null;
   onClose: () => void;
+  onNavigate?: (id: string) => void;
 }
 
-const SpotDetail: React.FC<SpotDetailProps> = ({ spot, onClose }) => {
+const SpotDetail: React.FC<SpotDetailProps> = ({ spot, onClose, onNavigate }) => {
   if (!spot) return null;
 
   const getBookingIcon = (type: Spot['booking_type']) => {
@@ -107,7 +108,10 @@ const SpotDetail: React.FC<SpotDetailProps> = ({ spot, onClose }) => {
               <div className="p-4 bg-white border border-zinc-200 rounded-2xl">
                 <p className="text-sm text-zinc-700 mb-4">{spot.address}</p>
                 <div className="flex gap-2">
-                  <button className="flex-1 flex items-center justify-center gap-2 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-bold transition-colors">
+                  <button 
+                    onClick={() => onNavigate && onNavigate(spot.id)}
+                    className="flex-1 flex items-center justify-center gap-2 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-bold transition-colors"
+                  >
                     <Navigation className="w-4 h-4" />
                     길찾기 시작
                   </button>
