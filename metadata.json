@@ -1,0 +1,7 @@
+{
+  "name": "상하이 2박 3일 여행 루트",
+  "description": "중국 상하이 2박 3일 여행 일정을 지도와 함께 확인하고 예약 가이드를 제공하는 웹앱",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
